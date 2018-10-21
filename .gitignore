@@ -1,0 +1,7 @@
+node_modules/
+package-lock.json
+logs/
+*.log
+.env
+*.mp3
+*.m4a

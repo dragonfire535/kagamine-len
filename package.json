@@ -1,0 +1,60 @@
+{
+	"name": "kagamine-len",
+	"version": "1.0.0",
+	"description": "A Discord music bot for local files.",
+	"main": "Len.js",
+	"scripts": {
+		"test": "npm run lint",
+		"lint": "eslint . --ext .js --ext .json",
+		"start": "node Len.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dragonfire535/kagamine-len.git"
+	},
+	"keywords": [
+		"bot",
+		"discord",
+		"discord-akairo",
+		"discord-api",
+		"discord-bot",
+		"discord-js",
+		"discord-music"
+	],
+	"author": "dragonfire535 <danielbodendahl@gmail.com>",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/dragonfire535/kagamine-len/issues"
+	},
+	"homepage": "https://github.com/dragonfire535/kagamine-len#readme",
+	"engines": {
+		"node": ">=10"
+	},
+	"dependencies": {
+		"@discordjs/uws": "^10.149.0",
+		"common-tags": "^1.8.0",
+		"discord-akairo": "github:1Computer1/discord-akairo",
+		"discord.js": "github:discordjs/discord.js",
+		"dotenv": "^6.1.0",
+		"erlpack": "github:discordapp/erlpack",
+		"moment": "^2.22.2",
+		"moment-duration-format": "^2.2.2",
+		"music-metadata": "^3.1.4",
+		"node-dir": "^0.1.17",
+		"node-opus": "^0.3.0",
+		"node-superfetch": "^0.1.9",
+		"winston": "^3.1.0",
+		"zlib-sync": "^0.1.4"
+	},
+	"devDependencies": {
+		"eslint": "^5.7.0",
+		"eslint-config-amber": "^2.0.0",
+		"eslint-plugin-json": "^1.2.1"
+	},
+	"eslintConfig": {
+		"extends": "amber",
+		"plugins": [
+			"json"
+		]
+	}
+}
