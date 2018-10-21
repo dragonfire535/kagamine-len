@@ -1,6 +1,6 @@
 {
 	"name": "kagamine-len",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A Discord music bot for local files.",
 	"main": "Len.js",
 	"scripts": {

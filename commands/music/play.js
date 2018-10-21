@@ -27,6 +27,7 @@ module.exports = class PlayCommand extends Command {
 		const verification = await verify(msg.channel, msg.author);
 		if (!verification) return msg.util.send('Aborted playback.');
 		song.queueStart();
-		return msg.util.send(`Queued **${song.artist} - ${song.title}** to play next!`);
+		this.client.jukebox.skip();
+		return msg.util.send(`Now playing **${song.artist} - ${song.title}**!`);
 	}
 };
