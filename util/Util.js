@@ -2,6 +2,10 @@ const yes = ['yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya'];
 const no = ['no', 'n', 'nah', 'nope', 'nop'];
 
 module.exports = class Util {
+	static shorten(text, maxLen = 2000) {
+		return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
+	}
+
 	static firstUpperCase(text) {
 		return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 	}
