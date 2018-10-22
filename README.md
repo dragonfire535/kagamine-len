@@ -12,15 +12,18 @@ Kagamine Len is a Discord bot coded in JavaScript with
 designed to play music from local files in a channel on one server.
 
 ## Commands (16)
-### Music:
+### Controls:
 
-* **now-playing:** Responds with the currently playing song.
 * **pause:** Pauses music playback.
 * **play:** Plays a song.
 * **queue:** Queues a song.
 * **resume:** Resumes paused music playback.
-* **search:** Searches for songs.
 * **skip:** Skips the current song.
+
+### Info:
+
+* **now-playing:** Responds with the currently playing song.
+* **search:** Searches for songs.
 * **view-queue:** Responds with the current queue.
 
 ### Other:

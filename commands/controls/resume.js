@@ -4,7 +4,7 @@ module.exports = class ResumeCommand extends Command {
 	constructor() {
 		super('resume', {
 			aliases: ['resume', 'unpause'],
-			category: 'music',
+			category: 'controls',
 			description: 'Resumes paused music playback.',
 			ownerOnly: true
 		});

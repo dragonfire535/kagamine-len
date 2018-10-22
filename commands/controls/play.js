@@ -5,7 +5,7 @@ module.exports = class PlayCommand extends Command {
 	constructor() {
 		super('play', {
 			aliases: ['play'],
-			category: 'music',
+			category: 'controls',
 			description: 'Plays a song.',
 			ownerOnly: true,
 			args: [

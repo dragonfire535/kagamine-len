@@ -5,7 +5,7 @@ module.exports = class ViewQueueCommand extends Command {
 	constructor() {
 		super('view-queue', {
 			aliases: ['view-queue', 'queued'],
-			category: 'music',
+			category: 'info',
 			description: 'Responds with the current queue.',
 			args: [
 				{

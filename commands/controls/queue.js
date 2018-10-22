@@ -5,7 +5,7 @@ module.exports = class QueueCommand extends Command {
 	constructor() {
 		super('queue', {
 			aliases: ['queue'],
-			category: 'music',
+			category: 'controls',
 			description: 'Queues a song.',
 			args: [
 				{

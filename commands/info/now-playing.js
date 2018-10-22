@@ -4,7 +4,7 @@ module.exports = class NowPlayingCommand extends Command {
 	constructor() {
 		super('now-playing', {
 			aliases: ['now-playing', 'current', 'currentlyplaying', 'playing'],
-			category: 'music',
+			category: 'info',
 			description: 'Responds with the currently playing song.',
 			ownerOnly: true
 		});

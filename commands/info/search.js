@@ -5,7 +5,7 @@ module.exports = class SearchCommand extends Command {
 	constructor() {
 		super('search', {
 			aliases: ['search'],
-			category: 'music',
+			category: 'info',
 			description: 'Searches for songs.',
 			args: [
 				{

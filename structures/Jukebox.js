@@ -3,6 +3,7 @@ const { Collection } = require('discord.js');
 const fs = require('fs');
 const dir = require('node-dir');
 const Song = require('./Song');
+const { shuffle } = require('../../util/Util');
 const { LEN_MUSIC_TYPES } = process.env;
 const types = LEN_MUSIC_TYPES ? LEN_MUSIC_TYPES.split(',') : ['mp3', 'm4a'];
 
@@ -14,6 +15,7 @@ module.exports = class Jukebox {
 		this.dispatcher = null;
 		this.channelID = channelID;
 		this.list = new Collection();
+		this.randomQueue = [];
 		this.queue = [];
 		this.current = null;
 	}
@@ -22,8 +24,10 @@ module.exports = class Jukebox {
 		const files = (await dir.promiseFiles(directory)).filter(file => this.typesRegex.test(file));
 		for (const file of files) {
 			const meta = await metadata.parseFile(file);
-			this.list.set(file, new Song(this, file, meta));
+			const song = new Song(this, file, meta);
+			this.list.set(file, song);
 		}
+		this.randomQueue = shuffle(Array.from(this.list.values()));
 		return this.list;
 	}
 
@@ -33,7 +37,9 @@ module.exports = class Jukebox {
 				this.current = this.queue[0];
 				this.queue.shift();
 			} else {
-				this.current = this.list.random();
+				this.current = this.randomQueue[0];
+				this.randomQueue.shift();
+				if (!this.randomQueue.length) this.randomQueue = shuffle(Array.from(this.list.values()));
 			}
 			this.client.user.setActivity(`${this.current.artist} - ${this.current.title}`, { type: 'LISTENING' })
 				.catch(() => null);
