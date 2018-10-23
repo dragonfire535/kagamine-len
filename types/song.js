@@ -13,5 +13,5 @@ function nameFilterExact(search) {
 }
 
 function nameFilterInexact(search) {
-	return thing => search.includes(thing.title.toLowerCase());
+	return thing => thing.title.toLowerCase().includes(search);
 }
