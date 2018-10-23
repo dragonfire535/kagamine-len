@@ -24,7 +24,7 @@ module.exports = class ViewQueueCommand extends Command {
 
 	exec(msg, { page }) {
 		const { queue } = this.client.jukebox;
-		if (!queue.length) return msg.util.send('Could not find any results.');
+		if (!queue.length) return msg.util.send('Nothing is currently queued.');
 		const maxPage = Math.ceil(queue.length / 10);
 		const startIndex = (page - 1) * 10;
 		const items = queue.slice(startIndex, startIndex + 10);
