@@ -3,7 +3,7 @@ const { Collection } = require('discord.js');
 const fs = require('fs');
 const dir = require('node-dir');
 const Song = require('./Song');
-const { shuffle } = require('../../util/Util');
+const { shuffle } = require('../util/Util');
 const { LEN_MUSIC_TYPES } = process.env;
 const types = LEN_MUSIC_TYPES ? LEN_MUSIC_TYPES.split(',') : ['mp3', 'm4a'];
 
