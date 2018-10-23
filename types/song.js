@@ -1,5 +1,6 @@
 module.exports = (phrase, msg) => {
 	const search = phrase.toLowerCase();
+	if (search === 'current') return msg.client.jukebox.current;
 	const songs = msg.client.jukebox.list.filter(nameFilterInexact(search));
 	if (songs.size === 1) return songs.first();
 	const exactSongs = songs.filter(nameFilterExact(search));
