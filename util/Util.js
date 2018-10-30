@@ -17,12 +17,8 @@ module.exports = class Util {
 		return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
 	}
 
-	static firstUpperCase(text) {
-		return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
-	}
-
-	static escapeRegex(str) {
-		return str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+	static formatNumber(number) {
+		return Number.parseFloat(number).toLocaleString(undefined, { maximumFractionDigits: 2 });
 	}
 
 	static base64(text, mode = 'encode') {

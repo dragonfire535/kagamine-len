@@ -1,15 +1,32 @@
 require('dotenv').config();
-const { LEN_TOKEN, LEN_PREFIX, OWNERS, INVITE, LEN_MUSIC_DIRECTORY } = process.env;
+const { LEN_TOKEN, OWNERS, LEN_PREFIX, INVITE, LEN_MUSIC_DIRECTORY } = process.env;
+const path = require('path');
 const Client = require('./structures/Client');
 const client = new Client({
-	prefix: LEN_PREFIX.split('||'),
-	ownerID: OWNERS.split(','),
+	commandPrefix: LEN_PREFIX,
+	owner: OWNERS.split(','),
+	invite: INVITE,
 	disableEveryone: true,
+	unknownCommandResponse: false,
 	disabledEvents: ['TYPING_START']
 });
-const { stripIndents } = require('common-tags');
 
-client.setup();
+client.registry
+	.registerDefaultTypes()
+	.registerTypesIn(path.join(__dirname, 'types'))
+	.registerGroups([
+		['util', 'Utility'],
+		['info', 'Song Information'],
+		['controls', 'Music Controls'],
+		['other', 'Other']
+	])
+	.registerDefaultCommands({
+		help: false,
+		ping: false,
+		prefix: false,
+		commandState: false
+	})
+	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.on('ready', async () => {
 	client.logger.info(`[READY] Logged in as ${client.user.tag}! ID: ${client.user.id}`);
@@ -27,13 +44,6 @@ client.on('error', err => client.logger.error(err));
 
 client.on('warn', warn => client.logger.warn(warn));
 
-client.commandHandler.on('error', (err, msg, command) => {
-	client.logger.error(`[COMMAND${command ? `:${command.name}` : ''}]\n${err.stack}`);
-	msg.reply(stripIndents`
-		An error occurred while running the command: \`${err.message}\`
-		You shouldn't ever receive an error like this.
-		${INVITE ? `Please visit ${INVITE} for help.` : 'Please pray for help.'}
-	`).catch(() => null);
-});
+client.on('commandError', (command, err) => client.logger.error(`[COMMAND:${command.name}]\n${err.stack}`));
 
 client.login(LEN_TOKEN);

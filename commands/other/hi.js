@@ -1,20 +1,22 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 
 module.exports = class HiCommand extends Command {
-	constructor() {
-		super('hi', {
-			aliases: ['hi', 'hello', 'hey', 'hoi', 'hola'],
-			category: 'other',
+	constructor(client) {
+		super(client, {
+			name: 'hi',
+			aliases: ['hello', 'hey', 'hoi', 'hola'],
+			group: 'single',
+			memberName: 'hi',
 			description: 'Hello.'
 		});
 	}
 
-	async exec(msg) {
+	async run(msg) {
 		try {
 			await msg.react('👋');
 			return null;
 		} catch (err) {
-			return msg.util.reply('Hi there!');
+			return msg.reply('Hi there!');
 		}
 	}
 };

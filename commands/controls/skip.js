@@ -1,18 +1,19 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 
 module.exports = class SkipCommand extends Command {
-	constructor() {
-		super('skip', {
-			aliases: ['skip'],
-			category: 'controls',
+	constructor(client) {
+		super(client, {
+			name: 'skip',
+			group: 'controls',
+			memberName: 'skip',
 			description: 'Skips the current song.',
 			ownerOnly: true
 		});
 	}
 
-	exec(msg) {
+	run(msg) {
 		const { current } = this.client.jukebox;
 		this.client.jukebox.skip();
-		return msg.util.send(`Skipped **${current.artist} - ${current.title}**.`);
+		return msg.say(`Skipped **${current.artist} - ${current.title}**.`);
 	}
 };

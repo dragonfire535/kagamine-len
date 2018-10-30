@@ -1,73 +1,55 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
-const { firstUpperCase } = require('../../util/Util');
 
 module.exports = class HelpCommand extends Command {
-	constructor() {
-		super('help', {
-			aliases: ['help', 'commands', 'command-list'],
-			category: 'util',
+	constructor(client) {
+		super(client, {
+			name: 'help',
+			aliases: ['commands', 'command-list'],
+			group: 'util',
+			memberName: 'help',
 			description: 'Displays a list of available commands, or detailed information for a specific command.',
+			guarded: true,
 			args: [
 				{
-					id: 'command',
-					prompt: {
-						start: 'Which command would you like to view the help for?',
-						retry: 'You provided an invalid command. Please try again.',
-						optional: true
-					},
-					type: 'commandAlias',
+					key: 'command',
+					prompt: 'Which command would you like to view the help for?',
+					type: 'command',
 					default: ''
 				}
 			]
 		});
 	}
 
-	async exec(msg, { command }) {
+	async run(msg, { command }) {
 		if (!command) {
 			const embed = new MessageEmbed()
 				.setTitle('Command List')
 				.setColor(0x00AE86)
-				.setFooter(`${this.handler.modules.size} Commands`);
-			for (const category of this.handler.categories.values()) {
+				.setFooter(`${this.client.registry.commands.size} Commands`);
+			for (const group of this.client.registry.groups.values()) {
 				embed.addField(
-					`❯ ${this.parseCategoryName(category.id)}`,
-					category.map(cmd => `\`${cmd.id}\``).join(', ') || 'None'
+					`❯ ${group.name}`,
+					group.commands.map(cmd => `\`${cmd.name}\``).join(', ') || 'None'
 				);
 			}
 			try {
 				const msgs = [];
-				msgs.push(await msg.author.send({ embed }));
-				if (msg.channel.type !== 'dm') msgs.push(await msg.util.send('📬 Sent you a DM with information.'));
+				msgs.push(await msg.direct({ embed }));
+				if (msg.channel.type !== 'dm') msgs.push(await msg.say('📬 Sent you a DM with information.'));
 				return msgs;
 			} catch (err) {
-				return msg.util.reply('Failed to send DM. You probably have DMs disabled.');
+				return msg.reply('Failed to send DM. You probably have DMs disabled.');
 			}
 		}
-		return msg.util.send(stripIndents`
-			__Command **${command.id}**__${command.channel === 'guild' ? ' (Usable only in servers)' : ''}
-			${command.description}${command.ownerOnly ? '\nOnly the bot owner(s) may use this command.' : ''}
+		return msg.say(stripIndents`
+			__Command **${command.name}**__${command.guildOnly ? ' (Usable only in servers)' : ''}
+			${command.description}${command.details ? `\n${command.details}` : ''}
 
-			**Format:** \`${command.id}${command.args.args.length ? ` ${this.makeArgList(command.args.args)}` : ''}\`
-			**Aliases:** ${command.aliases.join(', ')}
-			**Group:** ${this.parseCategoryName(command.categoryID)}
+			**Format:** ${msg.anyUsage(`${command.name} ${command.format || ''}`)}
+			**Aliases:** ${command.aliases.join(', ') || 'None'}
+			**Group:** ${command.group.name} (\`${command.groupID}:${command.memberName}\`)
 		`);
-	}
-
-	parseCategoryName(id) {
-		return id.split('-').map(word => firstUpperCase(word)).join(' ');
-	}
-
-	makeArgList(args) {
-		return args.map(arg => {
-			let result = '';
-			result += (arg.prompt && arg.prompt.optional) || arg.flag ? '[' : '<';
-			if (arg.prompt && arg.prompt.infinite) result += '...';
-			if (arg.flag) result += arg.flag.join('|');
-			else result += arg.id;
-			result += (arg.prompt && arg.prompt.optional) || arg.flag ? ']' : '>';
-			return result;
-		}).join(' ');
 	}
 };

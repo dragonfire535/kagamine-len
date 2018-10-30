@@ -1,33 +1,30 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 const { verify } = require('../../util/Util');
 
 module.exports = class PlayCommand extends Command {
-	constructor() {
-		super('play', {
-			aliases: ['play'],
-			category: 'controls',
+	constructor(client) {
+		super(client, {
+			name: 'play',
+			group: 'controls',
+			memberName: 'play',
 			description: 'Plays a song.',
 			ownerOnly: true,
 			args: [
 				{
-					id: 'song',
-					prompt: {
-						start: 'What song would you like to play?',
-						retry: 'You provided an invalid song. Please try again.'
-					},
-					match: 'content',
+					key: 'song',
+					prompt: 'What song would you like to play?',
 					type: 'song'
 				}
 			]
 		});
 	}
 
-	async exec(msg, { song }) {
-		await msg.util.reply(`Would you like to play **${song.artist} - ${song.title}**?`);
+	async run(msg, { song }) {
+		await msg.reply(`Would you like to play **${song.artist} - ${song.title}**?`);
 		const verification = await verify(msg.channel, msg.author);
-		if (!verification) return msg.util.send('Aborted playback.');
+		if (!verification) return msg.say('Aborted playback.');
 		song.queueStart();
 		this.client.jukebox.skip();
-		return msg.util.send(`Now playing **${song.artist} - ${song.title}**!`);
+		return msg.say(`Now playing **${song.artist} - ${song.title}**!`);
 	}
 };

@@ -1,6 +1,6 @@
 {
 	"name": "kagamine-len",
-	"version": "1.2.0",
+	"version": "2.0.0",
 	"description": "A Discord music bot for local files.",
 	"main": "Len.js",
 	"scripts": {
@@ -14,11 +14,12 @@
 	},
 	"keywords": [
 		"bot",
+		"commando",
 		"discord",
-		"discord-akairo",
 		"discord-api",
 		"discord-bot",
 		"discord-js",
+		"discord-js-commando",
 		"discord-music"
 	],
 	"author": "dragonfire535 <danielbodendahl@gmail.com>",
@@ -33,8 +34,8 @@
 	"dependencies": {
 		"@discordjs/uws": "^11.149.1",
 		"common-tags": "^1.8.0",
-		"discord-akairo": "github:1Computer1/discord-akairo",
 		"discord.js": "github:discordjs/discord.js",
+		"discord.js-commando": "github:discordjs/Commando",
 		"dotenv": "^6.1.0",
 		"erlpack": "github:discordapp/erlpack",
 		"moment": "^2.22.2",

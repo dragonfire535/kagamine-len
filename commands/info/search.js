@@ -1,28 +1,22 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 const { stripIndents } = require('common-tags');
 
 module.exports = class SearchCommand extends Command {
-	constructor() {
-		super('search', {
-			aliases: ['search'],
-			category: 'info',
+	constructor(client) {
+		super(client, {
+			name: 'search',
+			group: 'info',
+			memberName: 'search',
 			description: 'Searches for songs.',
 			args: [
 				{
-					id: 'query',
-					prompt: {
-						start: 'What song would you like to search for?',
-						retry: 'You provided an invalid query. Please try again.'
-					},
+					key: 'query',
+					prompt: 'What song would you like to search for?',
 					type: 'string'
 				},
 				{
-					id: 'page',
-					prompt: {
-						start: 'What page would you like to view?',
-						retry: 'You provided an invalid page. Please try again.',
-						optional: true
-					},
+					key: 'page',
+					prompt: 'What page would you like to view?',
 					type: 'integer',
 					default: 1
 				}
@@ -30,7 +24,7 @@ module.exports = class SearchCommand extends Command {
 		});
 	}
 
-	exec(msg, { query, page }) {
+	run(msg, { query, page }) {
 		const results = this.client.jukebox.list
 			.filter(song => {
 				const search = query.toLowerCase();
@@ -38,7 +32,7 @@ module.exports = class SearchCommand extends Command {
 					|| song.artist.toLowerCase().includes(search)
 					|| song.album.name.toLowerCase().includes(search);
 			});
-		if (!results.size) return msg.util.send('Could not find any results.');
+		if (!results.size) return msg.say('Could not find any results.');
 		const maxPage = Math.ceil(results.size / 10);
 		const startIndex = (page - 1) * 10;
 		let i = 0;
@@ -48,7 +42,7 @@ module.exports = class SearchCommand extends Command {
 				return `**${i}.** ${song.artist} - ${song.title}`;
 			})
 			.slice(startIndex, startIndex + 10);
-		return msg.util.send(stripIndents`
+		return msg.say(stripIndents`
 			__**Results:**__ _(Page ${page}/${maxPage}, ${results.size} Results)_
 			${items.join('\n')}
 		`);

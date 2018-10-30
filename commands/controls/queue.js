@@ -1,31 +1,28 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 const { verify } = require('../../util/Util');
 
 module.exports = class QueueCommand extends Command {
-	constructor() {
-		super('queue', {
-			aliases: ['queue'],
-			category: 'controls',
+	constructor(client) {
+		super(client, {
+			name: 'queue',
+			group: 'controls',
+			memberName: 'queue',
 			description: 'Queues a song.',
 			args: [
 				{
-					id: 'song',
-					prompt: {
-						start: 'What song would you like to queue?',
-						retry: 'You provided an invalid song. Please try again.'
-					},
-					match: 'content',
+					key: 'song',
+					prompt: 'What song would you like to queue?',
 					type: 'song'
 				}
 			]
 		});
 	}
 
-	async exec(msg, { song }) {
-		await msg.util.reply(`Would you like to queue **${song.artist} - ${song.title}**?`);
+	async run(msg, { song }) {
+		await msg.reply(`Would you like to queue **${song.artist} - ${song.title}**?`);
 		const verification = await verify(msg.channel, msg.author);
-		if (!verification) return msg.util.send('Aborted queue.');
+		if (!verification) return msg.say('Aborted queue.');
 		song.queue();
-		return msg.util.send(`Queued **${song.artist} - ${song.title}**!`);
+		return msg.say(`Queued **${song.artist} - ${song.title}**!`);
 	}
 };

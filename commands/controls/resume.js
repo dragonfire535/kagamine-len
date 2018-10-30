@@ -1,18 +1,20 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 
 module.exports = class ResumeCommand extends Command {
-	constructor() {
-		super('resume', {
-			aliases: ['resume', 'unpause'],
-			category: 'controls',
+	constructor(client) {
+		super(client, {
+			name: 'resume',
+			aliases: ['unpause'],
+			group: 'controls',
+			memberName: 'resume',
 			description: 'Resumes paused music playback.',
 			ownerOnly: true
 		});
 	}
 
-	exec(msg) {
-		if (!this.client.jukebox.paused) return msg.util.reply('Playback isn\'t paused! What are you, deaf?');
+	run(msg) {
+		if (!this.client.jukebox.paused) return msg.reply('Playback isn\'t paused! What are you, deaf?');
 		this.client.jukebox.resume();
-		return msg.util.send('Resumed playback.');
+		return msg.say('Resumed playback.');
 	}
 };

@@ -8,31 +8,11 @@
 
 Kagamine Len is a Discord bot coded in JavaScript with
 [discord.js](https://discord.js.org/) using the
-[Akairo](https://github.com/1Computer1/discord-akairo) command framework. It's
+[Commando](https://github.com/discordjs/Commando) command framework. It's
 designed to play music from local files in a channel on one server.
 
 ## Commands (18)
-### Controls:
-
-* **pause:** Pauses music playback.
-* **play:** Plays a song.
-* **queue:** Queues a song.
-* **resume:** Resumes paused music playback.
-* **rewind:** Rewinds to the beginning of the current song.
-* **skip:** Skips the current song.
-
-### Info:
-
-* **now-playing:** Responds with the currently playing song.
-* **search:** Searches for songs.
-* **song-info:** Responds with detailed information on a song.
-* **view-queue:** Responds with the current queue.
-
-### Other:
-
-* **hi:** Hello.
-
-### Util:
+### Utility:
 
 * **changelog:** Responds with the bot's latest 10 commits.
 * **donate:** Responds with the bot's donation links.
@@ -41,6 +21,26 @@ designed to play music from local files in a channel on one server.
 * **info:** Responds with detailed bot information.
 * **invite:** Responds with the bot's invite links.
 * **ping:** Checks the bot's ping to the Discord server.
+
+### Song Information:
+
+* **now-playing:** Responds with the currently playing song.
+* **search:** Searches for songs.
+* **song-info:** Responds with detailed information on a song.
+* **view-queue:** Responds with the current queue.
+
+### Music Controls:
+
+* **pause:** Pauses music playback.
+* **play:** Plays a song.
+* **queue:** Queues a song.
+* **resume:** Resumes paused music playback.
+* **rewind:** Rewinds to the beginning of the current song.
+* **skip:** Skips the current song.
+
+### Other:
+
+* **hi:** Hello.
 
 ## Licensing
 The bot is licensed under the GPL 3.0 license. See the file `LICENSE` for more

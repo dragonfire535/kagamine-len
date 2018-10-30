@@ -1,17 +1,19 @@
-const { Command } = require('discord-akairo');
+const Command = require('../../structures/Command');
 
 module.exports = class NowPlayingCommand extends Command {
-	constructor() {
-		super('now-playing', {
-			aliases: ['now-playing', 'current', 'currentlyplaying', 'playing'],
-			category: 'info',
+	constructor(client) {
+		super(client, {
+			name: 'now-playing',
+			aliases: ['current', 'currentlyplaying', 'playing'],
+			group: 'info',
+			memberName: 'now-playing',
 			description: 'Responds with the currently playing song.',
 			ownerOnly: true
 		});
 	}
 
-	exec(msg) {
+	run(msg) {
 		const { current } = this.client.jukebox;
-		return msg.util.send(`Currently playing **${current.artist} - ${current.title}**.`);
+		return msg.say(`Currently playing **${current.artist} - ${current.title}**.`);
 	}
 };
