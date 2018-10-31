@@ -1,4 +1,5 @@
 const Command = require('../../structures/Command');
+const { escapeMarkdown } = require('discord.js');
 const { verify } = require('../../util/Util');
 
 module.exports = class PlayCommand extends Command {
@@ -20,11 +21,11 @@ module.exports = class PlayCommand extends Command {
 	}
 
 	async run(msg, { song }) {
-		await msg.reply(`Would you like to play **${song.artist} - ${song.title}**?`);
+		await msg.reply(`Would you like to play **${escapeMarkdown(song.artist)} - ${escapeMarkdown(song.title)}**?`);
 		const verification = await verify(msg.channel, msg.author);
 		if (!verification) return msg.say('Aborted playback.');
 		song.queueStart();
 		this.client.jukebox.skip();
-		return msg.say(`Now playing **${song.artist} - ${song.title}**!`);
+		return msg.say(`Now playing **${escapeMarkdown(song.artist)} - ${escapeMarkdown(song.title)}**!`);
 	}
 };

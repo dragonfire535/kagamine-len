@@ -1,4 +1,5 @@
 const Command = require('../../structures/Command');
+const { escapeMarkdown } = require('discord.js');
 
 module.exports = class SkipCommand extends Command {
 	constructor(client) {
@@ -14,6 +15,6 @@ module.exports = class SkipCommand extends Command {
 	run(msg) {
 		const { current } = this.client.jukebox;
 		this.client.jukebox.skip();
-		return msg.say(`Skipped **${current.artist} - ${current.title}**.`);
+		return msg.say(`Skipped **${escapeMarkdown(current.artist)} - ${escapeMarkdown(current.title)}**.`);
 	}
 };

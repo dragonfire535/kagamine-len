@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command');
 const { stripIndents } = require('common-tags');
+const { escapeMarkdown } = require('discord.js');
 
 module.exports = class SearchCommand extends Command {
 	constructor(client) {
@@ -39,7 +40,7 @@ module.exports = class SearchCommand extends Command {
 		const items = results
 			.map(song => {
 				i++;
-				return `**${i}.** ${song.artist} - ${song.title}`;
+				return `**${i}.** ${escapeMarkdown(song.artist)} - ${escapeMarkdown(song.title)}`;
 			})
 			.slice(startIndex, startIndex + 10);
 		return msg.say(stripIndents`

@@ -1,4 +1,5 @@
 const Command = require('../../structures/Command');
+const { escapeMarkdown } = require('discord.js');
 
 module.exports = class RewindCommand extends Command {
 	constructor(client) {
@@ -15,6 +16,6 @@ module.exports = class RewindCommand extends Command {
 		const { current } = this.client.jukebox;
 		current.queueStart();
 		this.client.jukebox.skip();
-		return msg.say(`Rewinded to the beginning of **${current.artist} - ${current.title}**.`);
+		return msg.say(`Rewinded **${escapeMarkdown(current.artist)} - ${escapeMarkdown(current.title)}**.`);
 	}
 };

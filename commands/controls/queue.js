@@ -1,4 +1,5 @@
 const Command = require('../../structures/Command');
+const { escapeMarkdown } = require('discord.js');
 const { verify } = require('../../util/Util');
 
 module.exports = class QueueCommand extends Command {
@@ -19,10 +20,10 @@ module.exports = class QueueCommand extends Command {
 	}
 
 	async run(msg, { song }) {
-		await msg.reply(`Would you like to queue **${song.artist} - ${song.title}**?`);
+		await msg.reply(`Would you like to queue **${escapeMarkdown(song.artist)} - ${escapeMarkdown(song.title)}**?`);
 		const verification = await verify(msg.channel, msg.author);
 		if (!verification) return msg.say('Aborted queue.');
 		song.queue();
-		return msg.say(`Queued **${song.artist} - ${song.title}**!`);
+		return msg.say(`Queued **${escapeMarkdown(song.artist)} - ${escapeMarkdown(song.title)}**!`);
 	}
 };

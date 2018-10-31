@@ -1,4 +1,5 @@
 const Command = require('../../structures/Command');
+const { escapeMarkdown } = require('discord.js');
 
 module.exports = class NowPlayingCommand extends Command {
 	constructor(client) {
@@ -14,6 +15,6 @@ module.exports = class NowPlayingCommand extends Command {
 
 	run(msg) {
 		const { current } = this.client.jukebox;
-		return msg.say(`Currently playing **${current.artist} - ${current.title}**.`);
+		return msg.say(`Currently playing **${escapeMarkdown(current.artist)} - ${escapeMarkdown(current.title)}**.`);
 	}
 };
