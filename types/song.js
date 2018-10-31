@@ -1,9 +1,9 @@
 const { ArgumentType, util: { disambiguation } } = require('discord.js-commando');
 const { escapeMarkdown } = require('discord.js');
 
-module.exports = class EmojiArgumentType extends ArgumentType {
+module.exports = class SongArgumentType extends ArgumentType {
 	constructor(client) {
-		super(client, 'emoji');
+		super(client, 'song');
 	}
 
 	validate(value, msg) {
