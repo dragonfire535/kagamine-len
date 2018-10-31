@@ -5,7 +5,7 @@ module.exports = class HiCommand extends Command {
 		super(client, {
 			name: 'hi',
 			aliases: ['hello', 'hey', 'hoi', 'hola'],
-			group: 'single',
+			group: 'other',
 			memberName: 'hi',
 			description: 'Hello.'
 		});
