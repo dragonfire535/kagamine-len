@@ -8,6 +8,7 @@ module.exports = class SongArgumentType extends ArgumentType {
 
 	validate(value, msg) {
 		const search = value.toLowerCase();
+		if (search === 'current') return true;
 		const artistSongs = msg.client.jukebox.list.filter(nameFilterArtistInexact(search));
 		if (artistSongs.size === 1) return true;
 		let songs = msg.client.jukebox.list.filter(nameFilterInexact(search));
@@ -23,6 +24,7 @@ module.exports = class SongArgumentType extends ArgumentType {
 
 	parse(value, msg) {
 		const search = value.toLowerCase();
+		if (search === 'current') return msg.client.jukebox.current;
 		const artistSongs = msg.client.jukebox.list.filter(nameFilterArtistInexact(search));
 		if (artistSongs.size === 1) return artistSongs.first();
 		const songs = msg.client.jukebox.list.filter(nameFilterInexact(search));
